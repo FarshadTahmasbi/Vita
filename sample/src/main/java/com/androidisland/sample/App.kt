@@ -3,6 +3,7 @@ package com.androidisland.sample
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
+import com.androidisland.vita.Vita
 
 class App : Application(), LifecycleObserver {
 
@@ -13,6 +14,7 @@ class App : Application(), LifecycleObserver {
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
         val lc = ProcessLifecycleOwner.get()
         Log.d("test1", "-->${lc::class.java}")
+        Vita.init(this)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)

@@ -39,6 +39,5 @@ dependencies {
     implementation "org.koin:koin-core:$koin_version"
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
     implementation project(path: ':library')
-
-
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-3'
 }
