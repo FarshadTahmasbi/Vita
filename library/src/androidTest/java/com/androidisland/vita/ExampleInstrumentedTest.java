@@ -1,4 +1,4 @@
-package com.androidisland.library;
+package com.androidisland.vita;
 
 import android.content.Context;
 import androidx.test.InstrumentationRegistry;
