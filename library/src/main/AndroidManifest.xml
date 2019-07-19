@@ -1,13 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.androidisland.vita">
-
-    <application>
-        <service
-                android:name=".MyService"
-                android:enabled="true"
-                android:exported="false">
-        </service>
-    </application>
-
-</manifest>
+          package="com.androidisland.vita"/>
