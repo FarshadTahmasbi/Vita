@@ -8,6 +8,7 @@ import androidx.lifecycle.*
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
+import com.androidisland.vita.Vita
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -46,6 +47,10 @@ class MainActivity : AppCompatActivity() {
         text.setOnClickListener {
             startActivity(Intent(this, SecondActivity::class.java))
         }
+
+        val x by Vita.viewModel()
+        val y by Vita.x()
+        Log.d("test22", "$x=$y")
     }
 
     override fun onDestroy() {

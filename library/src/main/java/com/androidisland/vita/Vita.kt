@@ -2,6 +2,8 @@ package com.androidisland.vita
 
 import android.app.Application
 import android.util.Log
+import kotlin.properties.ReadWriteProperty
+import kotlin.reflect.KProperty
 
 object Vita {
 
@@ -15,6 +17,24 @@ object Vita {
                 Log.d("test13", "app exit!")
             }
         })
+    }
+
+    inline fun <reified T> getViewModel(): T {
+    }
+
+    fun viewModel(): ReadWriteProperty<Any?, Int> {
+        return object : ReadWriteProperty<Any?, Int> {
+            override fun getValue(thisRef: Any?, property: KProperty<*>): Int {
+                return 1000
+            }
+
+            override fun setValue(thisRef: Any?, property: KProperty<*>, value: Int) {
+            }
+        }
+    }
+
+    fun x(): Lazy<String> {
+        return lazy { "Hi" }
     }
 
     init {

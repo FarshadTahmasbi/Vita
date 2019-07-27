@@ -4,6 +4,10 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import com.androidisland.vita.Vita
+import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.context.startKoin
+import org.koin.dsl.module
 
 class App : Application(), LifecycleObserver {
 
@@ -15,6 +19,17 @@ class App : Application(), LifecycleObserver {
         val lc = ProcessLifecycleOwner.get()
         Log.d("test1", "-->${lc::class.java}")
         Vita.init(this)
+
+        val module = module {
+            viewModel {
+                VitaVM()
+            }
+        }
+
+        startKoin {
+            androidContext(this@App)
+            modules(module)
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
