@@ -6,7 +6,7 @@ import android.content.ComponentCallbacks
 import android.content.res.Configuration
 import android.os.Bundle
 
-internal abstract class AppCloseListener :
+internal abstract class AppExitListener :
     Application.ActivityLifecycleCallbacks, ComponentCallbacks {
 
     private var configChanged = false

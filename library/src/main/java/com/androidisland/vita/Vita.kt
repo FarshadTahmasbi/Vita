@@ -1,26 +1,48 @@
 package com.androidisland.vita
 
 import android.app.Application
+import android.content.Context
 import android.util.Log
+import kotlin.IllegalArgumentException
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-object Vita {
+class Vita internal constructor(app: Application) {
 
-    private var app: Application? = null
+    companion object {
+        @Volatile
+        private var INSTANCE: Vita? = null
 
-    fun init(application: Application) {
-        app = application
-        app?.registerAppCloseListener(object : AppCloseListener() {
+        internal fun getInstance(): Vita {
+            return INSTANCE ?: throw IllegalStateException("You should startVita in application onCreate() first")
+        }
+
+        internal fun createInstance(app: Application) {
+            INSTANCE = Vita(app)
+        }
+    }
+
+    init {
+        app.registerAppExitListener(object : AppExitListener() {
             override fun onAppExit() {
-                //TODO clear all app level view models...
-                Log.d("test13", "app exit!")
+                this@Vita.onAppExit()
             }
         })
     }
 
-    inline fun <reified T> getViewModel(): T {
+
+    private fun onAppExit() {
+        Log.d("test123", "app exit!!!")
     }
+
+//    inline fun <reified T : ViewModel> getViewModel(owner : LifecycleOwner?) : T {
+//        //1. owner is fragment, same as usual
+//        //2. owner is activity, same as usual
+//        //3. owner is process, create store, add observer on owners, and handle clear
+//        //4. no owner(null), clear on app exit
+//        //*** add factory support!
+//        //TODO
+//    }
 
     fun viewModel(): ReadWriteProperty<Any?, Int> {
         return object : ReadWriteProperty<Any?, Int> {
