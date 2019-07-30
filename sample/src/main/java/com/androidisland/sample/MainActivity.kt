@@ -52,7 +52,9 @@ class MainActivity : AppCompatActivity() {
 //        val x by Vita.viewModel()
 //        val y by Vita.x()
 //        Log.d("test22", "$x=$y")
-        vita
+//        val x = vita.getViewModel<VitaVM>(ProcessLifecycleOwner.get())
+        val x = vita.getViewModel<VitaVM>()
+        Log.d("test123", "$x")
     }
 
     override fun onDestroy() {

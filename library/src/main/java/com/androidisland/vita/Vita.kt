@@ -1,9 +1,15 @@
 package com.androidisland.vita
 
+import android.app.Activity
 import android.app.Application
-import android.content.Context
 import android.util.Log
-import kotlin.IllegalArgumentException
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ProcessLifecycleOwner
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
+import java.lang.RuntimeException
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -30,10 +36,37 @@ class Vita internal constructor(app: Application) {
         })
     }
 
-
     private fun onAppExit() {
+        //TODO handle clearing global viewmodels
         Log.d("test123", "app exit!!!")
     }
+
+
+    /**
+     * Use this method to get ViewModel, you can control the life of ViewModel by the owner you pass,
+     * If you pass a Fragment or FragmentActivity as owner, the ViewModel is alive while owner is alive
+     * (This is exactly same as it was before!)
+     * But if you pass a ProcessLifecycleOwner, ViewModel will be created in app level and stays alive unless
+     * the last owner is dead, this is useful when you want to share ViewModels between activities
+     * @param LifeCycleOwner object for ViewModel, it can be a Fragment, FragmentActivity or ProcessLifecycleOwner
+     * @return ViewModel object
+     */
+    inline fun <reified T : ViewModel> getViewModel(owner: LifecycleOwner): T {
+        return when (owner) {
+            is Fragment -> ViewModelProviders.of(owner)[T::class.java]
+            is FragmentActivity -> ViewModelProviders.of(owner)[T::class.java]
+            is ProcessLifecycleOwner -> TODO("not implemented")
+            else -> throw IllegalArgumentException("Unsupported owner passed")
+        }
+    }
+
+    //TODO overload getViewModel with factory!
+
+    inline fun <reified T : ViewModel> getViewModel(): T {
+        TODO("not implemented")
+    }
+
+    //TODO lazy version for getViewModel
 
 //    inline fun <reified T : ViewModel> getViewModel(owner : LifecycleOwner?) : T {
 //        //1. owner is fragment, same as usual
@@ -44,22 +77,8 @@ class Vita internal constructor(app: Application) {
 //        //TODO
 //    }
 
-    fun viewModel(): ReadWriteProperty<Any?, Int> {
-        return object : ReadWriteProperty<Any?, Int> {
-            override fun getValue(thisRef: Any?, property: KProperty<*>): Int {
-                return 1000
-            }
-
-            override fun setValue(thisRef: Any?, property: KProperty<*>, value: Int) {
-            }
-        }
-    }
-
     fun x(): Lazy<String> {
         return lazy { "Hi" }
     }
 
-    init {
-//        Log.d("test13", "vita init!")
-    }
 }
