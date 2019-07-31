@@ -3,7 +3,6 @@ package com.androidisland.sample
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
-import com.androidisland.vita.Vita
 import com.androidisland.vita.startVita
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -22,7 +21,7 @@ class App : Application(), LifecycleObserver {
 
         val module = module {
             viewModel {
-                VitaVM()
+                VitaVM("Ok")
             }
         }
 

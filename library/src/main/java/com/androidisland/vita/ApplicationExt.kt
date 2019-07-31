@@ -1,7 +1,6 @@
 package com.androidisland.vita
 
 import android.app.Application
-import androidx.lifecycle.LifecycleOwner
 
 internal fun Application.registerAppExitListener(listener: AppExitListener) {
     registerComponentCallbacks(listener)
@@ -13,9 +12,9 @@ internal fun Application.unregisterAppExitListener(listener: AppExitListener) {
     unregisterActivityLifecycleCallbacks(listener)
 }
 
+/**
+ * Starts Vita and make it ready to use
+ */
 fun Application.startVita() {
     Vita.createInstance(this)
 }
-
-val LifecycleOwner.vita: Vita
-    get() = Vita.getInstance()

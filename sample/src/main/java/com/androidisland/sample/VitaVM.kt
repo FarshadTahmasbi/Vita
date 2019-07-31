@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class VitaVM : ViewModel() {
+class VitaVM(val msg : String) : ViewModel() {
     val live = MutableLiveData<String>()
     fun setData(data : String) {
         live.value = data
@@ -12,6 +12,6 @@ class VitaVM : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        Log.d("test", "vita vm cleared!")
+        Log.d("test123", "vita vm cleared!, msg => $msg")
     }
 }

@@ -1,21 +1,20 @@
 package com.androidisland.sample
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import com.androidisland.vita.Vita
-import com.androidisland.vita.vita
 import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    val x by viewModel<VitaVM>()
+    //    val vm by viewModel<VitaVM>()
+    val lazyVM by Vita.viewModel(this) { VitaVM("Farshad!!!") }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,26 +34,25 @@ class MainActivity : AppCompatActivity() {
             store,
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
         )
-        val vm = provider[VitaVM::class.java]
-        Log.d("test1", "store-> $store")
-        Log.d("test1", "provider-> $provider")
-        Log.d("test1", "vm-> $vm")
-        vm.live.observe(this, Observer {
-            text.text = it
-            Log.d("test1", "live-> $it")
-        })
-        vm.setData("Hello world!")
+//        val vm = provider[VitaVM::class.java]
+//        Log.d("test1", "store-> $store")
+//        Log.d("test1", "provider-> $provider")
+//        Log.d("test1", "vm-> $vm")
+//        vm.live.observe(this, Observer {
+//            text.text = it
+//            Log.d("test1", "live-> $it")
+//        })
+//        vm.setData("Hello world!")
 
         text.setOnClickListener {
             startActivity(Intent(this, SecondActivity::class.java))
         }
 
-//        val x by Vita.viewModel()
-//        val y by Vita.x()
-//        Log.d("test22", "$x=$y")
-//        val x = vita.getViewModel<VitaVM>(ProcessLifecycleOwner.get())
-        val x = vita.getViewModel<VitaVM>()
-        Log.d("test123", "$x")
+        val vM = Vita.getViewModel(this) {
+            VitaVM("Hello bitches!!!")
+        }
+        Log.d("test123", "lazyVM=>$lazyVM")
+        Log.d("test123", "vM=>$vM")
     }
 
     override fun onDestroy() {
