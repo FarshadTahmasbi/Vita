@@ -14,4 +14,6 @@ class VitaVM(val msg : String) : ViewModel() {
         super.onCleared()
         Log.d("test123", "vita vm cleared!, msg => $msg")
     }
+
+    override fun toString() = "msg: $msg"
 }

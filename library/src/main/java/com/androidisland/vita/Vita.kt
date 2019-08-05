@@ -2,23 +2,27 @@ package com.androidisland.vita
 
 import android.app.Application
 import android.util.Log
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 
-/**
- * Responsible for caching ViewModelStores
- */
-internal class VitaStore internal constructor(app: Application) {
+typealias FactoryFun<T> = () -> T
+
+class Vita internal constructor(app: Application) {
 
     companion object {
         @Volatile
-        private var INSTANCE: VitaStore? = null
+        private var INSTANCE: Vita? = null
 
-        internal fun getInstance(): VitaStore {
+        internal fun getInstance(): Vita {
             return INSTANCE ?: throw IllegalStateException("You should startVita in application onCreate() first")
         }
 
         internal fun createInstance(app: Application) {
             synchronized(this) {
-                INSTANCE = VitaStore(app)
+                INSTANCE = Vita(app)
             }
         }
     }
@@ -26,7 +30,7 @@ internal class VitaStore internal constructor(app: Application) {
     init {
         app.registerAppExitListener(object : AppExitListener() {
             override fun onAppExit() {
-                this@VitaStore.onAppExit()
+                this@Vita.onAppExit()
             }
         })
     }
@@ -35,4 +39,6 @@ internal class VitaStore internal constructor(app: Application) {
         //TODO handle clearing None viewmodels
         Log.d("test123", "app exit!!!")
     }
+
+    fun with(owner: VitaOwner) = VitaProvider(owner)
 }

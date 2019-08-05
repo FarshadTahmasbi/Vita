@@ -16,5 +16,11 @@ internal fun Application.unregisterAppExitListener(listener: AppExitListener) {
  * Starts Vita and make it ready to use
  */
 fun Application.startVita() {
-    VitaStore.createInstance(this)
+    com.androidisland.vita.Vita.createInstance(this)
 }
+
+/**
+ * Vita singleton, helps to get the desired view model
+ */
+val Any.Vita: Vita
+    get() = com.androidisland.vita.Vita.getInstance()

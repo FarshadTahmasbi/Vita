@@ -9,12 +9,14 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import com.androidisland.vita.Vita
+import com.androidisland.vita.VitaOwner
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    //    val vm by viewModel<VitaVM>()
-    val lazyVM by Vita.viewModel(this) { VitaVM("Farshad!!!") }
+        val vm by Vita.with(VitaOwner.Single(this)).viewModel(){
+            VitaVM("lazy vita!")
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,11 +50,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, SecondActivity::class.java))
         }
 
-        val vM = Vita.getViewModel(this) {
-            VitaVM("Hello bitches!!!")
+        val vm2 = Vita
+            .with(VitaOwner.Single(this))
+            .getViewModel() {
+            VitaVM("Vita is the best")
         }
-        Log.d("test123", "lazyVM=>$lazyVM")
-        Log.d("test123", "vM=>$vM")
+        Log.d("test123", "vM=>$vm2")
     }
 
     override fun onDestroy() {
