@@ -3,19 +3,22 @@ package com.androidisland.vita
 import android.app.Application
 import android.util.Log
 
-internal class Vita internal constructor(app: Application) {
+/**
+ * Responsible for caching ViewModelStores
+ */
+internal class VitaStore internal constructor(app: Application) {
 
     companion object {
         @Volatile
-        private var INSTANCE: Vita? = null
+        private var INSTANCE: VitaStore? = null
 
-        internal fun getInstance(): Vita {
+        internal fun getInstance(): VitaStore {
             return INSTANCE ?: throw IllegalStateException("You should startVita in application onCreate() first")
         }
 
         internal fun createInstance(app: Application) {
             synchronized(this) {
-                INSTANCE = Vita(app)
+                INSTANCE = VitaStore(app)
             }
         }
     }
@@ -23,18 +26,13 @@ internal class Vita internal constructor(app: Application) {
     init {
         app.registerAppExitListener(object : AppExitListener() {
             override fun onAppExit() {
-                this@Vita.onAppExit()
+                this@VitaStore.onAppExit()
             }
         })
     }
 
     private fun onAppExit() {
-        //TODO handle clearing global viewmodels
+        //TODO handle clearing None viewmodels
         Log.d("test123", "app exit!!!")
     }
-
-    fun x(): Lazy<String> {
-        return lazy { "Hi" }
-    }
-
 }

@@ -16,5 +16,5 @@ internal fun Application.unregisterAppExitListener(listener: AppExitListener) {
  * Starts Vita and make it ready to use
  */
 fun Application.startVita() {
-    Vita.createInstance(this)
+    VitaStore.createInstance(this)
 }
