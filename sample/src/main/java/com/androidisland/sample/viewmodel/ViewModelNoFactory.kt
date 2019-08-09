@@ -1,4 +1,4 @@
-package com.androidisland.sample
+package com.androidisland.sample.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.androidisland.sample.viewmodel.BaseViewModel

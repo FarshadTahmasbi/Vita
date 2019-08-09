@@ -11,4 +11,9 @@ open class BaseViewModel : ViewModel() {
         super.onCleared()
         Log.d(TAG, "${toString()} is cleared now!")
     }
+
+    @CallSuper
+    override fun toString(): String {
+        return super.toString()
+    }
 }

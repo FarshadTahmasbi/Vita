@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
+import com.androidisland.sample.viewmodel.ViewModelNoFactory
 import com.androidisland.vita.Vita
 import com.androidisland.vita.VitaOwner
 import kotlinx.android.synthetic.main.activity_main.*
