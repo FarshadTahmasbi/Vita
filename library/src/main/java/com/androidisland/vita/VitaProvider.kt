@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 
+typealias FactoryFun<T> = () -> T
+
 class VitaProvider internal constructor(@PublishedApi internal val owner: VitaOwner) {
     /**
      * Use this method to get ViewModel, you can control the life of ViewModel by the owner you pass,
@@ -13,19 +15,13 @@ class VitaProvider internal constructor(@PublishedApi internal val owner: VitaOw
      * (This is exactly same as it was before!)
      * But if you pass a ProcessLifecycleOwner, ViewModel will be created in app level and stays alive unless
      * the last owner is dead, this is useful when you want to share ViewModels between activities
-     * @param owner object for ViewModel, it can be Single, Multiple or None
+     * @param factoryFun factory function to pass data to view model by its constructor
      * @return ViewModel object
      */
     @Suppress("UNCHECKED_CAST")
     inline fun <reified T : ViewModel> getViewModel(
         noinline factoryFun: FactoryFun<T>? = null
     ): T {
-        val factory = factoryFun?.let {
-            object : ViewModelProvider.Factory {
-                override fun <T : ViewModel?> create(modelClass: Class<T>) = it() as T
-            }
-        }
-
         return when (owner) {
             is VitaOwner.Single -> owner.getViewModel(factoryFun)
             is VitaOwner.Multiple -> owner.getViewModel(factoryFun)

@@ -1,10 +1,9 @@
 package com.androidisland.vita
 
 import android.app.Application
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
-
-typealias FactoryFun<T> = () -> T
 
 class Vita internal constructor(private val app: Application) {
 
