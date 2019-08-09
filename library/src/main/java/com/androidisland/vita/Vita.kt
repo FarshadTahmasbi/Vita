@@ -1,16 +1,14 @@
 package com.androidisland.vita
 
 import android.app.Application
-import android.util.Log
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelStore
 
 typealias FactoryFun<T> = () -> T
 
-class Vita internal constructor(app: Application) {
+class Vita internal constructor(private val app: Application) {
+
+    private val globalOwner = ViewModelStore()
 
     companion object {
         @Volatile
@@ -36,9 +34,20 @@ class Vita internal constructor(app: Application) {
     }
 
     private fun onAppExit() {
-        //TODO handle clearing None viewmodels
-        Log.d("test123", "app exit!!!")
+        globalOwner.clear()
     }
 
     fun with(owner: VitaOwner) = VitaProvider(owner)
+
+    @PublishedApi
+    internal fun createGlobalProvider(factory: ViewModelProvider.Factory? = null): ViewModelProvider {
+        return if (factory != null) ViewModelProvider(
+            globalOwner,
+            factory
+        )
+        else ViewModelProvider(
+            globalOwner,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(app)
+        )
+    }
 }

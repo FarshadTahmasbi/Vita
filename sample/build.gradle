@@ -40,4 +40,5 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
     implementation project(path: ':library')
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-3'
+    implementation 'com.androidisland.ezpermission:ezpermission:0.1.4'
 }

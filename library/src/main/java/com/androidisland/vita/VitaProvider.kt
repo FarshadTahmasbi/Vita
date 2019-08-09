@@ -28,14 +28,8 @@ class VitaProvider internal constructor(@PublishedApi internal val owner: VitaOw
 
         return when (owner) {
             is VitaOwner.Single -> owner.getViewModel(factoryFun)
-            is VitaOwner.Multiple -> {
-                //TODO not implemented
-                throw IllegalArgumentException("Unsupported owner passed")
-            }
-            is VitaOwner.None -> {
-                //TODO not implemented
-                throw IllegalArgumentException("Unsupported owner passed")
-            }
+            is VitaOwner.Multiple -> owner.getViewModel(factoryFun)
+            is VitaOwner.None -> owner.getViewModel(factoryFun)
         }
     }
 
@@ -48,17 +42,41 @@ class VitaProvider internal constructor(@PublishedApi internal val owner: VitaOw
         getViewModel(factoryFun)
     }
 
-//    @Suppress("UNCHECKED_CAST")
-//    private inline fun <reified T : ViewModel> VitaOwner.Single.getViewModel(noinline factoryFun: FactoryFun<T>? = null): T {
-//        val factory = factoryFun?.let {
-//            object : ViewModelProvider.Factory {
-//                override fun <T : ViewModel?> create(modelClass: Class<T>) = it() as T
-//            }
-//        }
-//        return when (lifecycleOwner) {
-//            is Fragment -> ViewModelProviders.of(lifecycleOwner, factory)[T::class.java]
-//            is FragmentActivity -> ViewModelProviders.of(lifecycleOwner, factory)[T::class.java]
-//            else -> throw IllegalArgumentException("Unsupported owner passed")
-//        }
-//    }
+    @Suppress("UNCHECKED_CAST")
+    @PublishedApi
+    internal inline fun <reified T : ViewModel> VitaOwner.Single.getViewModel(noinline factoryFun: FactoryFun<T>? = null): T {
+        val factory = factoryFun?.let {
+            object : ViewModelProvider.Factory {
+                override fun <T : ViewModel?> create(modelClass: Class<T>) = it() as T
+            }
+        }
+        return when (lifecycleOwner) {
+            is Fragment -> ViewModelProviders.of(lifecycleOwner, factory)[T::class.java]
+            is FragmentActivity -> ViewModelProviders.of(lifecycleOwner, factory)[T::class.java]
+            else -> throw IllegalArgumentException("Unsupported owner passed")
+        }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    @PublishedApi
+    internal inline fun <reified T : ViewModel> VitaOwner.Multiple.getViewModel(noinline factoryFun: FactoryFun<T>? = null): T {
+        val factory = factoryFun?.let {
+            object : ViewModelProvider.Factory {
+                override fun <T : ViewModel?> create(modelClass: Class<T>) = it() as T
+            }
+        }
+        //TODO implement...
+        throw IllegalArgumentException("Unsupported owner passed")
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    @PublishedApi
+    internal inline fun <reified T : ViewModel> VitaOwner.None.getViewModel(noinline factoryFun: FactoryFun<T>? = null): T {
+        val factory = factoryFun?.let {
+            object : ViewModelProvider.Factory {
+                override fun <T : ViewModel?> create(modelClass: Class<T>) = it() as T
+            }
+        }
+        return Vita.createGlobalProvider(factory)[T::class.java]
+    }
 }

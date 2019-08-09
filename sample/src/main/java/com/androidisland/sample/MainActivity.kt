@@ -14,9 +14,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-        val vm by Vita.with(VitaOwner.Single(this)).viewModel(){
-            VitaVM("lazy vita!")
-        }
+    val vm by Vita.with(VitaOwner.Single(this)).viewModel() {
+        VitaVM("lazy vita!")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,11 +51,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         val vm2 = Vita
-            .with(VitaOwner.Single(this))
+            .with(VitaOwner.None)
             .getViewModel() {
-            VitaVM("Vita is the best")
-        }
-        Log.d("test123", "vM=>$vm2")
+                VitaVM("Vita global!")
+            }
+
+        val vm3 = Vita
+            .with(VitaOwner.None)
+            .getViewModel<ViewModelNoFactory>()
+
+        val vm4 = Vita
+            .with(VitaOwner.None)
+            .getViewModel<ViewModelNoFactory>()
+
+        Log.d("test123", "vM2=>$vm2")
+        Log.d("test123", "vM3=>$vm3")
+        Log.d("test123", "vM4=>$vm4")
     }
 
     override fun onDestroy() {
