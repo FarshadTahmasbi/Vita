@@ -10,11 +10,7 @@ typealias FactoryFun<T> = () -> T
 
 class VitaProvider internal constructor(@PublishedApi internal val owner: VitaOwner) {
     /**
-     * Use this method to get ViewModel, you can control the life of ViewModel by the owner you pass,
-     * If you pass a Fragment or FragmentActivity as owner, the ViewModel is alive while owner is alive
-     * (This is exactly same as it was before!)
-     * But if you pass a ProcessLifecycleOwner, ViewModel will be created in app level and stays alive unless
-     * the last owner is dead, this is useful when you want to share ViewModels between activities
+     * Use this method to get ViewModel
      * @param factoryFun factory function to pass data to view model by its constructor
      * @return ViewModel object
      */
