@@ -42,11 +42,7 @@ class VitaProvider internal constructor(@PublishedApi internal val owner: VitaOw
                 override fun <T : ViewModel?> create(modelClass: Class<T>) = it() as T
             }
         }
-        return when (lifecycleOwner) {
-            is Fragment -> ViewModelProviders.of(lifecycleOwner, factory)[T::class.java]
-            is FragmentActivity -> ViewModelProviders.of(lifecycleOwner, factory)[T::class.java]
-            else -> throw IllegalArgumentException("Unsupported owner passed")
-        }
+        return vita.createSingleProvider(lifecycleOwner, factory)[T::class.java]
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -57,7 +53,7 @@ class VitaProvider internal constructor(@PublishedApi internal val owner: VitaOw
                 override fun <T : ViewModel?> create(modelClass: Class<T>) = it() as T
             }
         }
-        return vita.createProvider(T::class.java, lifecycleOwner, factory)[T::class.java]
+        return vita.createMultipleProvider(T::class.java, lifecycleOwner, factory)[T::class.java]
     }
 
     @Suppress("UNCHECKED_CAST")

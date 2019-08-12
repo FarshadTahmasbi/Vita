@@ -1,10 +1,9 @@
 package com.androidisland.vita
 
 import android.app.Application
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStore
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.*
 
 class Vita internal constructor(@PublishedApi internal val app: Application) {
 
@@ -44,6 +43,10 @@ class Vita internal constructor(@PublishedApi internal val app: Application) {
      */
     fun with(owner: VitaOwner) = VitaProvider(owner)
 
+
+    /**
+     * Responsible for creating provider for global view models in application scope
+     */
     @PublishedApi
     internal fun createGlobalProvider(factory: ViewModelProvider.Factory? = null): ViewModelProvider {
         return ViewModelProvider(
@@ -53,11 +56,26 @@ class Vita internal constructor(@PublishedApi internal val app: Application) {
     }
 
     /**
+     * Responsible for creating provider for view models with single owner (android default)
+     */
+    @PublishedApi
+    internal fun createSingleProvider(
+        lifecycleOwner: LifecycleOwner,
+        factory: ViewModelProvider.Factory?
+    ): ViewModelProvider {
+        return when (lifecycleOwner) {
+            is Fragment -> ViewModelProviders.of(lifecycleOwner, factory)
+            is FragmentActivity -> ViewModelProviders.of(lifecycleOwner, factory)
+            else -> throw IllegalArgumentException("Unsupported owner passed")
+        }
+    }
+
+    /**
      * Responsible for creating provider for view models with multiple owners
      */
     @PublishedApi
-    internal fun <T : ViewModel> createProvider(
-        clazz : Class<T>,
+    internal fun <T : ViewModel> createMultipleProvider(
+        clazz: Class<T>,
         lifecycleOwner: LifecycleOwner,
         factory: ViewModelProvider.Factory? = null
     ): ViewModelProvider {
