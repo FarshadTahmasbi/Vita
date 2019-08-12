@@ -17,7 +17,7 @@ internal class VitaViewModelStoreMap : VitaStore.Callback {
         }
     }
 
-    @PublishedApi internal inline fun <reified T : ViewModel> getOrCreate(owner: LifecycleOwner): VitaStore =
+    inline fun <reified T : ViewModel> getOrCreate(owner: LifecycleOwner): VitaStore =
         get<T>() ?: create<T>(owner)
 
     override fun onStoreClear(clazz: Class<*>) {

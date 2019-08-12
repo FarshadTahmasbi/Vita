@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 
-class Vita internal constructor(private val app: Application) {
+class Vita internal constructor(@PublishedApi internal val app: Application) {
 
     private val globalOwner = ViewModelStore()
     private val viewModelStoreMap = VitaViewModelStoreMap()
