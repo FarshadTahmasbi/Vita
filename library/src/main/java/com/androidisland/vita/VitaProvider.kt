@@ -57,8 +57,7 @@ class VitaProvider internal constructor(@PublishedApi internal val owner: VitaOw
                 override fun <T : ViewModel?> create(modelClass: Class<T>) = it() as T
             }
         }
-        //TODO implement...
-        throw IllegalArgumentException("Unsupported owner passed")
+        return vita.createProvider<T>(lifecycleOwner)[T::class.java]
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -69,6 +68,6 @@ class VitaProvider internal constructor(@PublishedApi internal val owner: VitaOw
                 override fun <T : ViewModel?> create(modelClass: Class<T>) = it() as T
             }
         }
-        return Vita.createGlobalProvider(factory)[T::class.java]
+        return vita.createGlobalProvider(factory)[T::class.java]
     }
 }

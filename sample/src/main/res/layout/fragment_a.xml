@@ -4,19 +4,14 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:background="#6DFFEB3B"
+        android:background="#C203A9F4"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
     <TextView android:layout_width="match_parent"
-              android:textColor="#000"
+              android:textColor="#FFF"
               android:padding="16dp"
               android:gravity="center"
-              android:text="Activity"
+              android:text="Fragment A"
               android:layout_height="wrap_content"/>
-
-    <fragment android:layout_width="match_parent"
-              android:layout_weight="1"
-              class="com.androidisland.sample.FragmentA"
-              android:layout_height="0dp" android:id="@+id/fragment_a"/>
 </LinearLayout>

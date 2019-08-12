@@ -1,6 +1,7 @@
 package com.androidisland.vita
 
 import android.app.Application
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
@@ -52,5 +53,16 @@ class Vita internal constructor(private val app: Application) {
             globalOwner,
             ViewModelProvider.AndroidViewModelFactory.getInstance(app)
         )
+    }
+
+    /**
+     * Responsible for creating provider for view models with multiple owners
+     */
+    @PublishedApi
+    internal inline fun <reified T : ViewModel> createProvider(
+        lifecycleOwner: LifecycleOwner
+    ): ViewModelProvider {
+        //TODO not implemented
+        throw RuntimeException("not implemented")
     }
 }

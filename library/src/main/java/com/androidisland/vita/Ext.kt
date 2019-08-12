@@ -1,6 +1,7 @@
 package com.androidisland.vita
 
 import android.app.Application
+import androidx.fragment.app.FragmentActivity
 
 internal fun Application.registerAppExitListener(listener: AppExitListener) {
     registerComponentCallbacks(listener)
@@ -13,14 +14,18 @@ internal fun Application.unregisterAppExitListener(listener: AppExitListener) {
 }
 
 /**
- * Starts Vita and make it ready to use
+ * Starts vita and make it ready to use
  */
 fun Application.startVita() {
-    com.androidisland.vita.Vita.createInstance(this)
+    Vita.createInstance(this)
 }
 
 /**
- * Vita singleton, helps to get the desired view model
+ * vita singleton, helps to get the desired view model
  */
-val Any.Vita: Vita
-    get() = com.androidisland.vita.Vita.getInstance()
+val Any.vita: Vita
+    get() = Vita.getInstance()
+
+fun FragmentActivity.addVitaLifeCycleObserver(observer: VitaDestroyObserver) {
+    lifecycle.addObserver(observer)
+}

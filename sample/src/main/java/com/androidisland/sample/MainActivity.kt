@@ -1,36 +1,25 @@
 package com.androidisland.sample
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import com.androidisland.sample.viewmodel.ViewModelNoFactory
-import com.androidisland.vita.Vita
+import com.androidisland.vita.vita
+import com.androidisland.vita.VitaDestroyObserver
 import com.androidisland.vita.VitaOwner
-import kotlinx.android.synthetic.main.activity_main.*
+import com.androidisland.vita.addVitaLifeCycleObserver
 
 class MainActivity : AppCompatActivity() {
 
-    val vm by Vita.with(VitaOwner.Single(this)).viewModel() {
+    val vm by vita.with(VitaOwner.Single(this)).viewModel() {
         VitaVM("lazy vita!")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val lc = lifecycle
-        Log.d("test1", "-->${lc::class.java}")
-
-        val adapter = Adapter(getString(R.string.raw))
-        list.layoutManager = LinearLayoutManager(this)
-        list.adapter = adapter
-        list.addItemDecoration(DividerItemDecoration(this, VERTICAL))
-
+        registerCallback()
 
         val store = (application as App).store
         val provider = ViewModelProvider(
@@ -47,21 +36,17 @@ class MainActivity : AppCompatActivity() {
 //        })
 //        vm.setData("Hello world!")
 
-        text.setOnClickListener {
-            startActivity(Intent(this, SecondActivity::class.java))
-        }
-
-        val vm2 = Vita
+        val vm2 = vita
             .with(VitaOwner.None)
             .getViewModel() {
-                VitaVM("Vita global!")
+                VitaVM("vita global!")
             }
 
-        val vm3 = Vita
+        val vm3 = vita
             .with(VitaOwner.None)
             .getViewModel<ViewModelNoFactory>()
 
-        val vm4 = Vita
+        val vm4 = vita
             .with(VitaOwner.None)
             .getViewModel<ViewModelNoFactory>()
 
@@ -73,5 +58,24 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         (application as App).store.clear()
+    }
+
+    private fun registerCallback() {
+        addVitaLifeCycleObserver(object : VitaDestroyObserver(this) {
+            override fun onLifeCycleDestroy() {
+                Log.d("test125", "destroyed...")
+            }
+        })
+//        lifecycle.addObserver(object : LifecycleObserver {
+//            @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+//            fun onCreate() {
+//                Log.d("test130", "created...")
+//            }
+//
+//            @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+//            fun onDestroy() {
+//                Log.d("test130", "destroyed...")
+//            }
+//        })
     }
 }
