@@ -1,7 +1,9 @@
 package com.androidisland.vita
 
 import android.app.Application
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.LifecycleOwner
 
 internal fun Application.registerAppExitListener(listener: AppExitListener) {
     registerComponentCallbacks(listener)
@@ -26,6 +28,21 @@ fun Application.startVita() {
 val Any.vita: Vita
     get() = Vita.getInstance()
 
-fun FragmentActivity.addVitaLifeCycleObserver(observer: VitaDestroyObserver) {
-    lifecycle.addObserver(observer)
+/**
+ * Determines if lifecycle owner is about to change config or not
+ */
+internal fun LifecycleOwner.isChangingConfigurations(): Boolean {
+    return when (this) {
+        is Fragment -> activity != null && activity?.isChangingConfigurations ?: false
+        is FragmentActivity -> isChangingConfigurations
+        else -> false
+    }
 }
+
+/**
+ * Get class name to use as key
+ */
+inline fun <reified T : Any> Any.className(): String {
+    return T::class.java.name
+}
+

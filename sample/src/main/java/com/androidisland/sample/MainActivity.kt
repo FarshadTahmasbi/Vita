@@ -5,10 +5,8 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.androidisland.sample.viewmodel.ViewModelNoFactory
-import com.androidisland.vita.vita
-import com.androidisland.vita.VitaDestroyObserver
 import com.androidisland.vita.VitaOwner
-import com.androidisland.vita.addVitaLifeCycleObserver
+import com.androidisland.vita.vita
 
 class MainActivity : AppCompatActivity() {
 
@@ -61,11 +59,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun registerCallback() {
-        addVitaLifeCycleObserver(object : VitaDestroyObserver(this) {
-            override fun onLifeCycleDestroy() {
-                Log.d("test125", "destroyed...")
-            }
-        })
 //        lifecycle.addObserver(object : LifecycleObserver {
 //            @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
 //            fun onCreate() {

@@ -3,13 +3,14 @@ package com.androidisland.vita
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
 
-abstract class VitaDestroyObserver(private val activity: FragmentActivity) : LifecycleObserver {
+@PublishedApi internal abstract class VitaDestroyObserver(private val lifecycleOwner: LifecycleOwner) : LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy() {
-        if (!activity.isChangingConfigurations)
+        if (!lifecycleOwner.isChangingConfigurations())
             onLifeCycleDestroy()
     }
 

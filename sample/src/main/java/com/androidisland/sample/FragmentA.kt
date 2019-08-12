@@ -19,7 +19,6 @@ class FragmentA : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("test33", "vm1=>$vm1")
-        ViewModelProviders.of(this)
     }
 
     override fun onCreateView(
@@ -30,13 +29,13 @@ class FragmentA : Fragment() {
         return inflater.inflate(R.layout.fragment_a, container, false)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.d("test33", "fragA view destroyed")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("test33", "fragA destroyed")
-    }
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//        Log.d("test33", "fragA view destroyed")
+//    }
+//
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        Log.d("test33", "fragA destroyed")
+//    }
 }
