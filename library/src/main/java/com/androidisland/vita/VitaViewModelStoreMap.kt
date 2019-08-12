@@ -9,16 +9,22 @@ internal class VitaViewModelStoreMap : VitaStore.Callback {
     //Value -> ViewModelStore
     private val storeMap = HashMap<String, VitaStore>()
 
-    private inline fun <reified T : ViewModel> get(): VitaStore? = storeMap[T::class.java.name]
+    private fun <T : ViewModel> get(clazz: Class<T>): VitaStore? = storeMap[clazz.name]
 
-    private inline fun <reified T : ViewModel> create(owner: LifecycleOwner): VitaStore {
-        return VitaStore.create<T>(owner, this).apply {
-            storeMap[T::class.java.name] = this
+    private fun <T : ViewModel> create(
+        clazz: Class<T>,
+        owner: LifecycleOwner
+    ): VitaStore {
+        return VitaStore.create<T>(clazz, owner, this).apply {
+            storeMap[clazz.name] = this
         }
     }
 
-    inline fun <reified T : ViewModel> getOrCreate(owner: LifecycleOwner): VitaStore =
-        get<T>() ?: create<T>(owner)
+    fun <T : ViewModel> getOrCreate(
+        clazz: Class<T>,
+        owner: LifecycleOwner
+    ): VitaStore =
+        get(clazz) ?: create(clazz, owner)
 
     override fun onStoreClear(clazz: Class<*>) {
         storeMap.remove(clazz.name)

@@ -14,11 +14,12 @@ internal class VitaStore private constructor(
     private val ownersName = HashSet<String>()
 
     companion object {
-        internal inline fun <reified T : ViewModel> create(
+        internal fun <T : ViewModel> create(
+            clazz : Class<T>,
             owner: LifecycleOwner,
             callback: Callback
         ): VitaStore {
-            return VitaStore(T::class.java, callback).apply {
+            return VitaStore(clazz, callback).apply {
                 addOwner(owner)
             }
         }

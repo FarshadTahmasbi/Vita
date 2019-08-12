@@ -13,7 +13,7 @@ import com.androidisland.vita.vita
 
 class FragmentA : Fragment() {
 
-    val vm1 by vita.with(VitaOwner.Single(this))
+    val vm1 by vita.with(VitaOwner.Multiple(this))
         .viewModel<ViewModelNoFactory>()
 
     override fun onCreate(savedInstanceState: Bundle?) {

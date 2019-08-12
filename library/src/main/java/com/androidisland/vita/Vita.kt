@@ -56,12 +56,12 @@ class Vita internal constructor(@PublishedApi internal val app: Application) {
      * Responsible for creating provider for view models with multiple owners
      */
     @PublishedApi
-    internal inline fun <reified T : ViewModel> createProvider(
+    internal fun <T : ViewModel> createProvider(
+        clazz : Class<T>,
         lifecycleOwner: LifecycleOwner,
         factory: ViewModelProvider.Factory? = null
     ): ViewModelProvider {
-        //TODO fix this shit
-        val store = viewModelStoreMap.getOrCreate<T>(lifecycleOwner)
+        val store = viewModelStoreMap.getOrCreate<T>(clazz, lifecycleOwner)
         return ViewModelProvider(
             store,
             factory ?: ViewModelProvider.AndroidViewModelFactory.getInstance(app)
