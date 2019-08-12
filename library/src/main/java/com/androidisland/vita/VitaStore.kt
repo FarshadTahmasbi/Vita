@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelStore
 import java.util.*
 
-class VitaStore private constructor(
+internal class VitaStore private constructor(
     private val clazz: Class<*>,
     private val callback: Callback
 ) : ViewModelStore(), LifecycleObserver {
@@ -14,8 +14,13 @@ class VitaStore private constructor(
     private val ownersName = HashSet<String>()
 
     companion object {
-        internal inline fun <reified T : ViewModel> create(callback: Callback): VitaStore {
-            return VitaStore(T::class.java, callback)
+        internal inline fun <reified T : ViewModel> create(
+            owner: LifecycleOwner,
+            callback: Callback
+        ): VitaStore {
+            return VitaStore(T::class.java, callback).apply {
+                addOwner(owner)
+            }
         }
     }
 
@@ -38,11 +43,11 @@ class VitaStore private constructor(
         if (ownersName.isEmpty()) {
             //Clear store when last owner is dead
             clear()
-            callback.OnStoreClear(clazz)
+            callback.onStoreClear(clazz)
         }
     }
 
     interface Callback {
-        fun OnStoreClear(clazz: Class<*>)
+        fun onStoreClear(clazz: Class<*>)
     }
 }

@@ -3,14 +3,24 @@ package com.androidisland.vita
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 
-internal class VitaViewModelStoreMap {
+internal class VitaViewModelStoreMap : VitaStore.Callback {
+
     //Key -> ViewModel class name
     //Value -> ViewModelStore
-    private val map = HashMap<String, VitaStore>()
+    private val storeMap = HashMap<String, VitaStore>()
 
-    inline fun <reified T : ViewModel> getStore(): VitaStore? = map[T::class.java.name]
+    private inline fun <reified T : ViewModel> get(): VitaStore? = storeMap[T::class.java.name]
 
-    inline fun <reified T : ViewModel> createStore(owner: LifecycleOwner): VitaStore{
+    private inline fun <reified T : ViewModel> create(owner: LifecycleOwner): VitaStore {
+        return VitaStore.create<T>(owner, this).apply {
+            storeMap[T::class.java.name] = this
+        }
+    }
 
+    @PublishedApi internal inline fun <reified T : ViewModel> getOrCreate(owner: LifecycleOwner): VitaStore =
+        get<T>() ?: create<T>(owner)
+
+    override fun onStoreClear(clazz: Class<*>) {
+        storeMap.remove(clazz.name)
     }
 }

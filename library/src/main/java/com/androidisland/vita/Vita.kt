@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelStore
 class Vita internal constructor(private val app: Application) {
 
     private val globalOwner = ViewModelStore()
+    private val viewModelStoreMap = VitaViewModelStoreMap()
 
     companion object {
         @Volatile
@@ -45,13 +46,9 @@ class Vita internal constructor(private val app: Application) {
 
     @PublishedApi
     internal fun createGlobalProvider(factory: ViewModelProvider.Factory? = null): ViewModelProvider {
-        return if (factory != null) ViewModelProvider(
+        return ViewModelProvider(
             globalOwner,
-            factory
-        )
-        else ViewModelProvider(
-            globalOwner,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(app)
+            factory ?: ViewModelProvider.AndroidViewModelFactory.getInstance(app)
         )
     }
 
@@ -60,9 +57,14 @@ class Vita internal constructor(private val app: Application) {
      */
     @PublishedApi
     internal inline fun <reified T : ViewModel> createProvider(
-        lifecycleOwner: LifecycleOwner
+        lifecycleOwner: LifecycleOwner,
+        factory: ViewModelProvider.Factory? = null
     ): ViewModelProvider {
-        //TODO not implemented
-        throw RuntimeException("not implemented")
+        //TODO fix this shit
+        val store = viewModelStoreMap.getOrCreate<T>(lifecycleOwner)
+        return ViewModelProvider(
+            store,
+            factory ?: ViewModelProvider.AndroidViewModelFactory.getInstance(app)
+        )
     }
 }
