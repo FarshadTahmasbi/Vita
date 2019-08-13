@@ -1,6 +1,8 @@
 package com.androidisland.vita
 
 import android.app.Application
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
@@ -44,5 +46,13 @@ internal fun LifecycleOwner.isChangingConfigurations(): Boolean {
  */
 inline fun <reified T : Any> Any.className(): String {
     return T::class.java.name
+}
+
+/**
+ * Log for debug purpose
+ */
+internal fun Any.logD(msg: String) {
+    if (BuildConfig.DEBUG)
+        Log.d("Vita", msg)
 }
 

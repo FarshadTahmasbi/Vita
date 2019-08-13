@@ -6,7 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelStore
 import java.util.*
 
-internal class VitaStore private constructor(
+/**
+ * This is a ViewModelStore that helps to share ViewModels between LifeCycleOwners
+ * Also it tracks lifecycle of owners so when last registered owner for a specific ViewModel
+ * dies, it clears the store and ViewModel as well...
+ */
+internal class VitaSharedStore private constructor(
     private val clazz: Class<*>,
     private val callback: Callback
 ) : ViewModelStore(), LifecycleObserver {
@@ -15,14 +20,10 @@ internal class VitaStore private constructor(
 
     companion object {
         internal fun <T : ViewModel> create(
-            clazz : Class<T>,
-            owner: LifecycleOwner,
+            clazz: Class<T>,
             callback: Callback
-        ): VitaStore {
-            return VitaStore(clazz, callback).apply {
-                addOwner(owner)
-            }
-        }
+        ): VitaSharedStore = VitaSharedStore(clazz, callback)
+
     }
 
     private fun createDestroyObserver(owner: LifecycleOwner) =
@@ -33,18 +34,25 @@ internal class VitaStore private constructor(
         }
 
     fun addOwner(owner: LifecycleOwner) {
+        if (ownersName.contains(owner::class.java.name)){
+            logD("$owner is already added")
+            return
+        }
         ownersName.add(owner::class.java.name)
         owner.apply {
             lifecycle.addObserver(createDestroyObserver(this))
         }
+        logD("$owner registered in $this as owner of ${clazz.simpleName} ")
     }
 
     private fun removeOwner(owner: LifecycleOwner) {
         ownersName.remove(owner::class.java.name)
+        logD("$owner unregistered from $this as ${clazz.simpleName}'s owner")
         if (ownersName.isEmpty()) {
             //Clear store when last owner is dead
             clear()
             callback.onStoreClear(clazz)
+            logD("$this, store of ${clazz.simpleName} cleared")
         }
     }
 

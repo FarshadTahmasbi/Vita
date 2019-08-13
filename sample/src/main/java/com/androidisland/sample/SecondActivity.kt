@@ -5,36 +5,22 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.androidisland.sample.viewmodel.ViewModelNoFactory
+import com.androidisland.vita.VitaOwner
+import com.androidisland.vita.vita
 import kotlinx.android.synthetic.main.activity_second.*
 
 class SecondActivity : AppCompatActivity() {
+
+    val vm by vita.with(VitaOwner.Multiple(this)).viewModel<ViewModelNoFactory>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
 
-        val store = (application as App).store
-        val provider = ViewModelProvider(
-            store,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        )
-        val vm = provider[VitaVM::class.java]
-        Log.d("test2", "store-> $store")
-        Log.d("test2", "provider-> $provider")
-        Log.d("test2", "vm-> $vm")
-        vm.live.observe(this, Observer {
-            Log.d("test2", "live-> $it")
-            edit_text.setText(it)
-        })
-
-        btn.setOnClickListener {
-            vm.setData(edit_text.text.toString())
-        }
-
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        (application as App).store.clear()
+//        btn.setOnClickListener {
+//            vm.setData(edit_text.text.toString())
+//        }
+        Log.d("Vita", "SecondActivity#vm=>$vm")
     }
 }

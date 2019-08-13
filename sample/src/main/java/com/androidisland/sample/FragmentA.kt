@@ -1,5 +1,6 @@
 package com.androidisland.sample
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,7 +19,7 @@ class FragmentA : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("test33", "vm1=>$vm1")
+        Log.d("Vita", "FragmentA#vm=>$vm1")
     }
 
     override fun onCreateView(
@@ -27,6 +28,13 @@ class FragmentA : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_a, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        view.setOnClickListener {
+            startActivity(Intent(view.context, SecondActivity::class.java))
+        }
     }
 
 //    override fun onDestroyView() {

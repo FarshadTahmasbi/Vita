@@ -8,7 +8,7 @@ import androidx.lifecycle.*
 class Vita internal constructor(@PublishedApi internal val app: Application) {
 
     private val globalOwner = ViewModelStore()
-    private val viewModelStoreMap = VitaViewModelStoreMap()
+    private val viewModelStoreMap = VitaSharedStoreFactory()
 
     companion object {
         @Volatile

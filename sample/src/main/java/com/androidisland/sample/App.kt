@@ -11,8 +11,6 @@ import org.koin.dsl.module
 
 class App : Application(), LifecycleObserver {
 
-    val store = ViewModelStore()
-
     override fun onCreate() {
         super.onCreate()
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
@@ -44,15 +42,6 @@ class App : Application(), LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy() {
-        store.clear()
         Log.d("test1", "destroyed!")
-    }
-
-    fun getVita():VitaVM {
-        val provider = ViewModelProvider(
-            store,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(this)
-        )
-       return provider[VitaVM::class.java]
     }
 }
