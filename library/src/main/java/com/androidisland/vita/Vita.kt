@@ -38,10 +38,10 @@ class Vita internal constructor(@PublishedApi internal val app: Application) {
     }
 
     /**
-     * Creates a VitaProvider to get the view model you want
+     * Creates a VitaBuilder to get the view model you want
      * @param owner VitaOwner that is responsible for view model life
      */
-    fun with(owner: VitaOwner) = VitaProvider(owner)
+    fun with(owner: VitaOwner) = VitaBuilder(owner)
 
 
     /**

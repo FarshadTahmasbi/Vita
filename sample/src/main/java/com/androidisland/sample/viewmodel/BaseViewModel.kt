@@ -1,19 +1,18 @@
 package com.androidisland.sample.viewmodel
 
+import android.app.Application
 import android.util.Log
+import android.widget.Toast
 import androidx.annotation.CallSuper
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import com.androidisland.sample.Constants.Companion.TAG
 
-open class BaseViewModel : ViewModel() {
+open class BaseViewModel(app: Application) : AndroidViewModel(app) {
     @CallSuper
     override fun onCleared() {
         super.onCleared()
-        Log.d(TAG, "${toString()} is cleared now!")
-    }
-
-    @CallSuper
-    override fun toString(): String {
-        return super.toString()
+        Toast.makeText(getApplication(), "${this::class.java.simpleName} is cleared", Toast.LENGTH_SHORT)
+            .show()
     }
 }

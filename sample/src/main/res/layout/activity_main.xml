@@ -3,37 +3,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#6DFFEB3B"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:padding="12dp"
+    tools:context=".view.activity.MainActivity">
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="Vita"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="Activity"
-            android:textColor="#000" />
-
-        <Button
-            android:layout_gravity="center"
-            android:text="Create ViewModel"
-            android:layout_width="wrap_content"
-            android:id="@+id/create_btn"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <fragment
-        android:id="@+id/fragment_a"
-        class="com.androidisland.sample.FragmentA"
+    <Button
+        android:id="@+id/single_owner_btn"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="wrap_content"
+        android:text="ViewModel with single owner"
+        android:textAllCaps="false"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/multiple_owner_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ViewModel with multiple owners"
+        android:textAllCaps="false"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/no_owner_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ViewModel with no owner (Application Scope)"
+
+        android:textAllCaps="false"
+        android:textSize="14sp" />
+
 </LinearLayout>

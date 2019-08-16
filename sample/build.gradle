@@ -9,7 +9,7 @@ android {
     buildToolsVersion "29.0.0"
     defaultConfig {
         applicationId "com.androidisland.sample"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -40,5 +40,6 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
     implementation project(path: ':library')
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-3'
-    implementation 'com.androidisland.ezpermission:ezpermission:0.1.4'
+    implementation 'petrov.kristiyan:colorpicker-library:1.1.10'
+
 }

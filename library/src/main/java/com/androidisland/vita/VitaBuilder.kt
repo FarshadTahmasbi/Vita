@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProviders
 
 typealias FactoryFun<T> = () -> T
 
-class VitaProvider internal constructor(@PublishedApi internal val owner: VitaOwner) {
+class VitaBuilder internal constructor(@PublishedApi internal val owner: VitaOwner) {
     /**
      * Use this method to get ViewModel
      * @param factoryFun factory function to pass data to view model by its constructor
