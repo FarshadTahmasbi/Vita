@@ -10,9 +10,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.activity.multiple_owners.NoFragActivity"></activity>
-        <activity android:name=".ThirdActivity"></activity>
-        <activity android:name=".view.activity.multiple_owners.TwoFragsActivity"></activity>
+        <activity android:name=".view.activity.no_owner.NoOwnerActivity"></activity>
+        <activity android:name=".view.activity.single_owner.SingleOwnerActivity" />
+        <activity android:name=".view.activity.multiple_owners.NoFragActivity" />
+        <activity android:name=".ThirdActivity" />
+        <activity android:name=".view.activity.multiple_owners.MultipleOwnerActivity" />
         <activity android:name=".view.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

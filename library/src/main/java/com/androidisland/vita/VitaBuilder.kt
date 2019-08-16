@@ -1,10 +1,7 @@
 package com.androidisland.vita
 
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 
 typealias FactoryFun<T> = () -> T
 
@@ -25,14 +22,14 @@ class VitaBuilder internal constructor(@PublishedApi internal val owner: VitaOwn
         }
     }
 
-    /**
-     * Same as getViewModel function but returns the result lazily
-     */
-    inline fun <reified T : ViewModel> viewModel(
-        noinline factoryFun: FactoryFun<T>? = null
-    ) = lazy {
-        getViewModel(factoryFun)
-    }
+//    /**
+//     * Same as getViewModel function but returns the result lazily
+//     */
+//    inline fun <reified T : ViewModel> viewModel(
+//        noinline factoryFun: FactoryFun<T>? = null
+//    ) = lazy {
+//            getViewModel(factoryFun)
+//        }
 
     @Suppress("UNCHECKED_CAST")
     @PublishedApi

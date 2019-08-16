@@ -16,7 +16,7 @@ internal class VitaSharedStore private constructor(
     private val callback: Callback
 ) : ViewModelStore(), LifecycleObserver {
 
-    private val ownersName = HashSet<String>()
+    private val owners = HashSet<LifecycleOwner>()
 
     companion object {
         internal fun <T : ViewModel> create(
@@ -34,11 +34,11 @@ internal class VitaSharedStore private constructor(
         }
 
     fun addOwner(owner: LifecycleOwner) {
-        if (ownersName.contains(owner::class.java.name)){
+        if (owners.contains(owner)){
             logD("$owner is already added")
             return
         }
-        ownersName.add(owner::class.java.name)
+        owners.add(owner)
         owner.apply {
             lifecycle.addObserver(createDestroyObserver(this))
         }
@@ -46,9 +46,9 @@ internal class VitaSharedStore private constructor(
     }
 
     private fun removeOwner(owner: LifecycleOwner) {
-        ownersName.remove(owner::class.java.name)
+        owners.remove(owner)
         logD("$owner unregistered from $this as ${clazz.simpleName}'s owner")
-        if (ownersName.isEmpty()) {
+        if (owners.isEmpty()) {
             //Clear store when last owner is dead
             clear()
             callback.onStoreClear(clazz)

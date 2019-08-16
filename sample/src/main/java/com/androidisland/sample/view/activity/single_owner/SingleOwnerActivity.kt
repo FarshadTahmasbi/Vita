@@ -1,4 +1,4 @@
-package com.androidisland.sample.view.activity.multiple_owners
+package com.androidisland.sample.view.activity.single_owner
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,22 +8,25 @@ import com.androidisland.sample.openColorDialog
 import com.androidisland.sample.viewmodel.ColorViewModel
 import com.androidisland.vita.VitaOwner
 import com.androidisland.vita.vita
-import kotlinx.android.synthetic.main.activity_two_frags.*
+import kotlinx.android.synthetic.main.activity_single_owner.*
 
-class TwoFragsActivity : AppCompatActivity() {
+class SingleOwnerActivity : AppCompatActivity() {
 
-    private val viewModel by vita.with(VitaOwner.Multiple(this)).viewModel<ColorViewModel>()
+    private val viewModel by lazy {
+        vita.with(VitaOwner.Single(this)).getViewModel<ColorViewModel>()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_two_frags)
+        setContentView(R.layout.activity_single_owner)
         main_group.setOnClickListener {
-            openColorDialog("TwoFragsActivity") { changeColor(it) }
+            openColorDialog("SingleOwnerActivity") { changeColor(it) }
         }
-        second_activity_btn.setOnClickListener {
-            Intent(this, NoFragActivity::class.java).apply { startActivity(this) }
+        new_instance_btn.setOnClickListener {
+            Intent(this, SingleOwnerActivity::class.java).apply { startActivity(this) }
         }
     }
 
     private fun changeColor(color: Int) = viewModel.setColor(color)
+
 }
