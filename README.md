@@ -45,7 +45,7 @@ Make sure your project includes jcenter in its repositories and add this to buil
 
 ## How to use
 
-There is an extension value named **vita** that give you access to a singleton object of Vita everywhere, Just pass your desired VitaOwner and get the ViewModel you want:
+There is an extension value named **vita** that gives you access to a singleton object of Vita everywhere, Just pass your desired VitaOwner and get the ViewModel you want:
 
 `val myViewModel = vita.with(VitaOwner.Multiple(this)).getViewModel<MyViewModel>()`
 
