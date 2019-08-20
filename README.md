@@ -1,4 +1,4 @@
-# Vita
+# Vita [ ![Download](https://api.bintray.com/packages/farshad-tmb/Vita/vita/images/download.svg) ](https://bintray.com/farshad-tmb/Vita/vita/_latestVersion)
 An extension for android ViewModel
 
  <p align="center">
