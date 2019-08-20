@@ -1,7 +1,9 @@
 # Vita
 An extension for android ViewModel
 
-![](vita_typo_.png)
+ <p align="center">
+  <img width="600" src="images/vita_typo.png">
+</p>
 
 
 As we know we need a LifeCycleOwner (e.g Fragment or FragmentActivity) to create ViewModels, when the owner is at the end of its lifecycle the ViewModel will be cleared as well, Sometimes you need to share the ViewModel between multiple owners, By default we can only share ViewModel of an activity between its fragments for now, nothing more...
@@ -14,7 +16,7 @@ As we know we need a LifeCycleOwner (e.g Fragment or FragmentActivity) to create
  
  <br/>
  <p align="center">
-  <img src="single_owner_diagram.png">
+  <img src="images/single_owner_diagram.png">
 </p>
 
 - Creates ViewModels with **Multiple Owners**:
@@ -22,7 +24,7 @@ As we know we need a LifeCycleOwner (e.g Fragment or FragmentActivity) to create
  
  <br/>
  <p align="center">
-  <img src="multiple_owner_diagram.png">
+  <img src="images/multiple_owner_diagram.png">
 </p>
 
 - Creates ViewModels with **No Owner**:
@@ -30,5 +32,5 @@ As we know we need a LifeCycleOwner (e.g Fragment or FragmentActivity) to create
  
  <br/>
  <p align="center">
-  <img src="no_owner_diagram.png">
+  <img src="images/no_owner_diagram.png">
 </p>
