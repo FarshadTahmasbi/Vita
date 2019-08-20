@@ -12,7 +12,7 @@ As we know we need a LifeCycleOwner (e.g Fragment or FragmentActivity) to create
 
 ## What Vita does:
 - Creates ViewModels with **Single Owner**:
- This is the default ViewModel behavior that already have, The ViewModels created in this way are only available to the owner.
+ This is the default ViewModel behavior that already has, The ViewModels created in this way are only available to the owner.
  
  <br/>
  <p align="center">
@@ -28,7 +28,7 @@ As we know we need a LifeCycleOwner (e.g Fragment or FragmentActivity) to create
 </p>
 
 - Creates ViewModels with **No Owner**:
- The ViewModels has no owner, they are available in the application scope and stay alive until the user closes the application
+ The ViewModels have no owner, they are available in the application scope and stay alive until the user closes the application
  
  <br/>
  <p align="center">
