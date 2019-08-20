@@ -39,7 +39,7 @@ class Vita internal constructor(@PublishedApi internal val app: Application) {
 
     /**
      * Creates a VitaBuilder to get the view model you want
-     * @param owner VitaOwner that is responsible for view model life
+     * @param owner VitaOwner that is responsible for ViewModel life
      */
     fun with(owner: VitaOwner) = VitaBuilder(owner)
 

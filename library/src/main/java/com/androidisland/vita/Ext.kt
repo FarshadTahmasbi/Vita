@@ -25,7 +25,7 @@ fun Application.startVita() {
 }
 
 /**
- * vita singleton, helps to get the desired view model
+ * vita singleton, all starts from here!
  */
 val Any.vita: Vita
     get() = Vita.getInstance()
