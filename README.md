@@ -1,7 +1,9 @@
-# Vita
+# Vita [ ![Download](https://api.bintray.com/packages/farshad-tmb/Vita/vita/images/download.svg) ](https://bintray.com/farshad-tmb/Vita/vita/_latestVersion)
 An extension for android ViewModel
 
-![](vita_typo_.png)
+ <p align="center">
+  <img width="600" src="images/vita_typo.png">
+</p>
 
 
 As we know we need a LifeCycleOwner (e.g Fragment or FragmentActivity) to create ViewModels, when the owner is at the end of its lifecycle the ViewModel will be cleared as well, Sometimes you need to share the ViewModel between multiple owners, By default we can only share ViewModel of an activity between its fragments for now, nothing more...
@@ -14,7 +16,7 @@ As we know we need a LifeCycleOwner (e.g Fragment or FragmentActivity) to create
  
  <br/>
  <p align="center">
-  <img src="single_owner_diagram.png">
+  <img src="images/single_owner_diagram.png">
 </p>
 
 - Creates ViewModels with **Multiple Owners**:
@@ -22,7 +24,7 @@ As we know we need a LifeCycleOwner (e.g Fragment or FragmentActivity) to create
  
  <br/>
  <p align="center">
-  <img src="multiple_owner_diagram.png">
+  <img src="images/multiple_owner_diagram.png">
 </p>
 
 - Creates ViewModels with **No Owner**:
@@ -30,5 +32,42 @@ As we know we need a LifeCycleOwner (e.g Fragment or FragmentActivity) to create
  
  <br/>
  <p align="center">
-  <img src="no_owner_diagram.png">
+  <img src="images/no_owner_diagram.png">
 </p>
+
+## Gradle setup
+
+Make sure your project includes jcenter in its repositories and add this to build.gradle in app module
+  
+  	dependencies {
+	        implementation 'com.androidisland.arch:vita:0.1.0'
+	}
+
+## How to use
+
+There is an extension value named **vita** that gives you access to a singleton object of Vita everywhere, Just pass your desired VitaOwner and get the ViewModel you want:
+
+`val myViewModel = vita.with(VitaOwner.Multiple(this)).getViewModel<MyViewModel>()`
+
+Also you can pass a function as factory like this:
+
+`val myViewModelWithFactory = vita.with(VitaOwner.Multiple(this)).getViewModel(){
+            MyViewModelWithFactory(initData)
+        }`
+
+
+## License
+
+    Copyright 2019 Farshad Tahmasbi
+    
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    
+       http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.    
