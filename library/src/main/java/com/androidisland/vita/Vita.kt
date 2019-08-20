@@ -8,7 +8,7 @@ import androidx.lifecycle.*
 class Vita internal constructor(@PublishedApi internal val app: Application) {
 
     private val globalOwner = ViewModelStore()
-    private val viewModelStoreMap = VitaSharedStoreFactory()
+    private val viewModelStoreFactory = VitaSharedStoreFactory()
 
     companion object {
         @Volatile
@@ -79,7 +79,7 @@ class Vita internal constructor(@PublishedApi internal val app: Application) {
         lifecycleOwner: LifecycleOwner,
         factory: ViewModelProvider.Factory? = null
     ): ViewModelProvider {
-        val store = viewModelStoreMap.getOrCreate<T>(clazz, lifecycleOwner)
+        val store = viewModelStoreFactory.getOrCreate<T>(clazz, lifecycleOwner)
         return ViewModelProvider(
             store,
             factory ?: ViewModelProvider.AndroidViewModelFactory.getInstance(app)

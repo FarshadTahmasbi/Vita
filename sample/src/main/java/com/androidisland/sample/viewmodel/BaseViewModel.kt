@@ -12,7 +12,7 @@ open class BaseViewModel(app: Application) : AndroidViewModel(app) {
     @CallSuper
     override fun onCleared() {
         super.onCleared()
-        Toast.makeText(getApplication(), "${this::class.java.simpleName} is cleared", Toast.LENGTH_SHORT)
+        Toast.makeText(getApplication(), "${this::class.java.simpleName}@${hashCode()} is cleared", Toast.LENGTH_SHORT)
             .show()
     }
 }

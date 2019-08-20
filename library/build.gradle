@@ -1,17 +1,37 @@
+apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'com.android.library'
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 
+def _versionName = '0.1.0'
+def _versionCode = 1
+def _groupId = 'com.androidisland.arch'
+def _artifactId = 'vita'
+def _userOrg = 'farshad-tmb'
+def _repoName = 'Vita'
+def _desc = 'An extension for android ViewModel'
+def _git = 'https://github.com/FarshadTahmasbi/Vita'
+
+publish {
+    userOrg = _userOrg
+    repoName = _repoName
+    groupId = _groupId
+    artifactId = _artifactId
+    publishVersion = _versionName
+    desc = _desc
+    website = _git
+}
+
+
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.0"
-
 
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode _versionCode
+        versionName _versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
