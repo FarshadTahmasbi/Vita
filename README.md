@@ -44,7 +44,7 @@ Make sure your project includes jcenter in its repositories and add this to buil
 
 ## How to use
 
-First startVita in application class:
+First start **Vita** in application class:
 
     class App : Application() {
 	    override fun onCreate() {
