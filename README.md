@@ -1,11 +1,11 @@
-# Vita [ ![Download](https://api.bintray.com/packages/farshad-tmb/Vita/vita/images/download.svg) ](https://bintray.com/farshad-tmb/Vita/vita/_latestVersion)
-An extension for android ViewModel
+# Vita [ ![Download](https://api.bintray.com/packages/farshad-tmb/Vita/vita/images/download.svg) ](https://bintray.com/farshad-tmb/Vita/vita/_latestVersion) 
+***Share ViewModels EVERYWHERE !***
 
  <p align="center">
   <img width="600" src="images/vita_typo.png">
 </p>
 
-**Vita** is a light and simple library that helps you to share ViewModel between fragments and activities, even you can create ViewModels in application scope
+**Vita** is a light and simple library that helps you to share ViewModel between fragments and even activities! Also you can create ViewModels that are available all over the application! Cool, right!?
 
 As we know we need a LifeCycleOwner (e.g Fragment or FragmentActivity) to create ViewModels, when the owner is at the end of its lifecycle the ViewModel will be cleared as well, Sometimes you need to share the ViewModel between multiple owners, By default we can only share ViewModel of an activity between its fragments for now, nothing more...
 
