@@ -63,7 +63,7 @@ Also you can pass a function as factory like this:
             MyViewModelWithFactory(initData)
         }`
 
-### Don't forget to give it a star if you liked it!
+### ⭐️ Don't forget to give it a star if you liked it!
 
 ## License
 
