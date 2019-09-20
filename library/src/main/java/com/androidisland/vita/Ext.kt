@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModel
 
 internal fun Application.registerAppExitListener(listener: AppExitListener) {
     registerComponentCallbacks(listener)
@@ -56,3 +57,37 @@ internal fun Any.logD(msg: String) {
         Log.d("Vita", msg)
 }
 
+inline fun <reified T : ViewModel> Vita.sinleOwner(
+    lifecycleOwner: LifecycleOwner,
+    noinline factoryFun: FactoryFun<T>? = null
+) = with(VitaOwner.Single(lifecycleOwner)).getViewModel(factoryFun)
+
+inline fun <reified T : ViewModel> Vita.sinleOwnerLazy(
+    lifecycleOwner: LifecycleOwner,
+    noinline factoryFun: FactoryFun<T>? = null
+) = lazy {
+    with(VitaOwner.Single(lifecycleOwner)).getViewModel(factoryFun)
+}
+
+inline fun <reified T : ViewModel> Vita.multipleOwner(
+    lifecycleOwner: LifecycleOwner,
+    noinline factoryFun: FactoryFun<T>? = null
+) = with(VitaOwner.Multiple(lifecycleOwner)).getViewModel(factoryFun)
+
+inline fun <reified T : ViewModel> Vita.multipleOwnerLazy(
+    lifecycleOwner: LifecycleOwner,
+    noinline factoryFun: FactoryFun<T>? = null
+) = lazy {
+    with(VitaOwner.Multiple(lifecycleOwner)).getViewModel(factoryFun)
+}
+
+
+inline fun <reified T : ViewModel> Vita.noneOwner(
+    noinline factoryFun: FactoryFun<T>? = null
+) = with(VitaOwner.None).getViewModel(factoryFun)
+
+inline fun <reified T : ViewModel> Vita.noneOwnerLazy(
+    noinline factoryFun: FactoryFun<T>? = null
+) = lazy {
+    with(VitaOwner.None).getViewModel(factoryFun)
+}
