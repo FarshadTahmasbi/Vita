@@ -43,7 +43,7 @@ As we know we need a LifeCycleOwner (e.g Fragment or FragmentActivity) to create
 Make sure your project includes jcenter in its repositories and add this to build.gradle in app module
   
   	dependencies {
-	        implementation 'com.androidisland.arch:vita:0.1.0'
+	        implementation 'com.androidisland.arch:vita:$latest_version'
 	}
 
 ## How to use
