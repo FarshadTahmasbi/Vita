@@ -1,18 +1,21 @@
-# Vita [ ![Download](https://api.bintray.com/packages/farshad-tmb/Vita/vita/images/download.svg) ](https://bintray.com/farshad-tmb/Vita/vita/_latestVersion)
-An extension for android ViewModel
+# Vita
+
+![Maven Central](https://img.shields.io/maven-central/v/com.androidisland.arch/vita.svg?label=Maven%20Central)
+![Apache License, Version 2.0, January 2004](https://img.shields.io/github/license/apache/maven.svg?label=License)
+
 
  <p align="center">
   <img width="600" src="images/vita_typo.png">
 </p>
 
 
-As we know we need a LifeCycleOwner (e.g Fragment or FragmentActivity) to create ViewModels, when the owner is at the end of its lifecycle the ViewModel will be cleared as well, Sometimes you need to share the ViewModel between multiple owners, By default we can only share ViewModel of an activity between its fragments for now, nothing more...
+**Vita** is a light and simple library that helps you to share ViewModel between fragments and even activities! Also you can create ViewModels that are available all over the application! Cool, right!?
 
-**Vita** is a light and simple library that helps you to share ViewModel between fragments and activities, even you can create ViewModels in application scope
+As we know we need a LifeCycleOwner (e.g Fragment or FragmentActivity) to create ViewModels, when the owner is at the end of its lifecycle the ViewModel will be cleared as well, Sometimes you need to share the ViewModel between multiple owners, By default we can only share ViewModel of an activity between its fragments for now, nothing more...
 
 ## What Vita does:
 - Creates ViewModels with **Single Owner**:
- This is the default ViewModel behavior that already have, The ViewModels created in this way are only available to the owner.
+ This is the default ViewModel behavior that already has, The ViewModels created in this way are only available to the owner.
  
  <br/>
  <p align="center">
@@ -28,7 +31,7 @@ As we know we need a LifeCycleOwner (e.g Fragment or FragmentActivity) to create
 </p>
 
 - Creates ViewModels with **No Owner**:
- The ViewModels has no owner, they are available in the application scope and stay alive until the user closes the application
+ The ViewModels have no owner, they are available in the application scope and stay alive until the user closes the application
  
  <br/>
  <p align="center">
@@ -40,10 +43,19 @@ As we know we need a LifeCycleOwner (e.g Fragment or FragmentActivity) to create
 Make sure your project includes jcenter in its repositories and add this to build.gradle in app module
   
   	dependencies {
-	        implementation 'com.androidisland.arch:vita:0.1.0'
+	        implementation 'com.androidisland.arch:vita:$latest_version'
 	}
 
 ## How to use
+
+First start **Vita** in application class:
+
+    class App : Application() {
+	    override fun onCreate() {
+	    	super.onCreate()
+		startVita()
+		}
+    }
 
 There is an extension value named **vita** that gives you access to a singleton object of Vita everywhere, Just pass your desired VitaOwner and get the ViewModel you want:
 
@@ -55,6 +67,7 @@ Also you can pass a function as factory like this:
             MyViewModelWithFactory(initData)
         }`
 
+### ⭐️ Don't forget to give it a star if you liked it!
 
 ## License
 
