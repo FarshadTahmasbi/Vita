@@ -1,9 +1,13 @@
-# Vita [ ![Download](https://img.shields.io/maven-central/v/com.androidisland.arch/vita.svg?label=Maven%20Central) ](https://bintray.com/farshad-tmb/Vita/vita/_latestVersion) 
-***Share ViewModels EVERYWHERE !***
+# Vita
+
+![Maven Central](https://img.shields.io/maven-central/v/com.androidisland.arch/vita.svg?label=Maven%20Central)
+![Apache License, Version 2.0, January 2004](https://img.shields.io/github/license/apache/maven.svg?label=License)
+
 
  <p align="center">
   <img width="600" src="images/vita_typo.png">
 </p>
+
 
 **Vita** is a light and simple library that helps you to share ViewModel between fragments and even activities! Also you can create ViewModels that are available all over the application! Cool, right!?
 
