@@ -1,4 +1,4 @@
-# Vita [ ![Download](https://api.bintray.com/packages/farshad-tmb/Vita/vita/images/download.svg) ](https://bintray.com/farshad-tmb/Vita/vita/_latestVersion) 
+# Vita [ ![Download](https://img.shields.io/maven-central/v/com.androidisland.arch/vita.svg?label=Maven%20Central) ](https://bintray.com/farshad-tmb/Vita/vita/_latestVersion) 
 ***Share ViewModels EVERYWHERE !***
 
  <p align="center">
