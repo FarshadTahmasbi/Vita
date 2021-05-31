@@ -1,7 +1,7 @@
 # Vita
 
-![Maven Central](https://img.shields.io/maven-central/v/com.androidisland.arch/vita.svg?label=Maven%20Central)
-![Apache License, Version 2.0, January 2004](https://img.shields.io/github/license/apache/maven.svg?label=License)
+[![Maven Central](https://img.shields.io/maven-central/v/com.androidisland.arch/vita.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.androidisland.arch%22%20AND%20a:%22vita%22)
+[![Apache License, Version 2.0, January 2004](https://img.shields.io/github/license/apache/maven.svg?label=License)](http://www.apache.org/licenses/LICENSE-2.0)
 
 
  <p align="center">
