@@ -42,30 +42,39 @@ As we know we need a LifeCycleOwner (e.g Fragment or FragmentActivity) to create
 
 Make sure your project includes jcenter in its repositories and add this to build.gradle in app module
   
-  	dependencies {
-	        implementation 'com.androidisland.arch:vita:$latest_version'
-	}
+
+```gradle
+dependencies {
+    implementation("com.androidisland.arch:vita:$latest_version")
+}
+```
 
 ## How to use
 
 First start **Vita** in application class:
 
-    class App : Application() {
-	    override fun onCreate() {
-	    	super.onCreate()
-		startVita()
-		}
+```kotlin
+class App : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        startVita()
     }
+}
+```
 
 There is an extension value named **vita** that gives you access to a singleton object of Vita everywhere, Just pass your desired VitaOwner and get the ViewModel you want:
 
-`val myViewModel = vita.with(VitaOwner.Multiple(this)).getViewModel<MyViewModel>()`
+```kotlin
+val myViewModel = vita.with(VitaOwner.Multiple(this)).getViewModel<MyViewModel>()
+```
 
 Also you can pass a function as factory like this:
 
-`val myViewModelWithFactory = vita.with(VitaOwner.Multiple(this)).getViewModel(){
-            MyViewModelWithFactory(initData)
-        }`
+```kotlin
+val myViewModelWithFactory = vita.with(VitaOwner.Multiple(this)).getViewModel() {
+    MyViewModelWithFactory(initData)
+}
+```
 
 ### ⭐️ Don't forget to give it a star if you liked it!
 
